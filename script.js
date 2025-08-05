@@ -409,6 +409,7 @@ function reverter_efeito_de_itens() {
 }
 
 function controle_bot() {
+    setTimeout(function() {
     if(modo_de_jogo !="contra_bot"){return;}
     if (vez_jogador === 2) {
         chance_de_jogada_bot = Math.floor(Math.random() * (2 - 1 + 1)) + 1;
@@ -433,7 +434,7 @@ function controle_bot() {
                 console.log("bot atirou no jogador 1");
                 ordem_das_balas.shift();
                 document.getElementById("vida_jogador_1").textContent = "Vida jogador 1: " + vida_jogador_1;
-              //  document.getElementById("dano_players").innerHTML = "Jogador 1 Levou um tiro!<br>Vez do jogador 1.";
+              document.getElementById("dano_players").innerHTML = "Jogador 1 Levou um tiro!<br>Vez do jogador 1.";
               jogador_ganhou(vez_jogador);
                 vez_jogador = 1;
                 reverter_efeito_de_itens();
@@ -446,7 +447,7 @@ function controle_bot() {
                 vida_jogador_2 -= dano_arma_na_rodada;
                 ordem_das_balas.shift();
                 document.getElementById("vida_jogador_2").textContent = "Vida jogador 2: " + vida_jogador_2;
-                  //  document.getElementById("dano_players").innerHTML = "Jogador 2 atirou em si mesmo!<br>Vez do jogador 1.";
+                  document.getElementById("dano_players").innerHTML = "Jogador 2 atirou em si mesmo!<br>Vez do jogador 1.";
                     console.log("bot atirou em si mesmo");
                     jogador_ganhou(vez_jogador);
                     vez_jogador = 1;
@@ -464,7 +465,7 @@ function controle_bot() {
                 console.log("bot deu bala vazia");
                 ordem_das_balas.shift();
                 document.getElementById("vida_jogador_1").textContent = "Vida jogador 1: " + vida_jogador_1;
-                //document.getElementById("dano_players").innerHTML = "Bala vazia!<br>Vez do jogador 1.";
+                document.getElementById("dano_players").innerHTML = "Bala vazia!<br>Vez do jogador 1.";
                 jogador_ganhou(vez_jogador);
                 vez_jogador = 1;
                 reverter_efeito_de_itens();
@@ -476,7 +477,7 @@ function controle_bot() {
             if (chance_de_jogada_bot === 2 && vida_jogador_2 != 0) {
                 
                 ordem_das_balas.shift();
-                   // document.getElementById("dano_players").innerHTML = "Bala vazia!<br>Vez do jogador 2.";
+                   document.getElementById("dano_players").innerHTML = "Bala vazia!<br>Vez do jogador 2.";
                     console.log("bot atirou em si mesmo e vazia");
                     
                     repetir_controle_bot();
@@ -489,6 +490,7 @@ function controle_bot() {
 
         }
     }
+    }, 7000);
 }
 function repetir_controle_bot(){
     
