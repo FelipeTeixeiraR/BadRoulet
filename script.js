@@ -269,8 +269,8 @@ function jogador_ganhou(jogador_que_ganhou) {
         document.getElementById("btn_atirar").style.display = "none";
         document.getElementById("btn_atirarEmSiMesmo").style.display = "none";
         document.getElementById("id_carga_explosiva").style.display = "none";
-        document.getElementById("vida_jogador_1").style.display = "none";
-        document.getElementById("vida_jogador_2").style.display = "none";
+        document.getElementById("vida_jogador_1").textContent = "";
+        document.getElementById("vida_jogador_2").textContent = "";
         document.getElementById("vez_jogador_js").style.display = "none";
         return;
     } else if (vida_jogador_2 <= 0) {
@@ -278,8 +278,8 @@ function jogador_ganhou(jogador_que_ganhou) {
         document.getElementById("btn_atirar").style.display = "none";
         document.getElementById("btn_atirarEmSiMesmo").style.display = "none";
         document.getElementById("id_carga_explosiva").style.display = "none";
-        document.getElementById("vida_jogador_1").style.display = "none";
-        document.getElementById("vida_jogador_2").style.display = "none";
+        document.getElementById("vida_jogador_1").textContent = "";
+        document.getElementById("vida_jogador_2").textContent = "";
         document.getElementById("vez_jogador_js").style.display = "none";
         return;
     }
