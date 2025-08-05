@@ -8,10 +8,15 @@
     </title>
     <script src="script.js" defer></script>
 </head>
-<link rel=" stylesheet " href="style.css ">
+<link rel="stylesheet" href="./style.css">
 
 
 <body>
+
+    <div id="modo_de_jogo">
+        <button id="id_jogar_contra_bot" onclick=" jogar_contra_bot()">Jogar contra um BOT</button>
+        <button id="id_jogar_contra_outra_pessoa" onclick="jogar_com_outra_pessoa()">Jogar com outra pessoa</button>
+    </div>
     <div id="life">
 
         <p id="quantidade_vida">comece a partida</p>
@@ -21,11 +26,12 @@
     </div>
     <div id="att_carregamento">
         <p id="informacoes_carregamento"></p>
+        <p id="aut_recarga"></p>
     </div>
-    <div id="botoes">
-        <button onclick="inicio_partida()">Iniciar partida</button>
-        <button onclick="atirar()">Atirar</button>
-        <button onclick="atirar_em_si_mesmo()">Atirar em si mesmo</button>
+    <div id="botoes ">
+        <button id="iniciar_partida" onclick="inicio_partida() ">Iniciar partida</button>
+        <button id="btn_atirar" onclick="atirar() ">Atirar</button>
+        <button id="btn_atirarEmSiMesmo" onclick="atirar_em_si_mesmo() ">Atirar em si mesmo</button>
     </div>
     <div id="vez_jogadores">
 
