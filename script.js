@@ -12,6 +12,8 @@ let jogador_que_ganhou = null;
 let modo_de_jogo = "outro_jogador";
 let jogador_1_tem_carga_explosiva = false;
 let jogador_2_tem_carga_explosiva = false;
+let jogador_1_tem_cura_basica = false;
+let jogador_2_tem_cura_basica = false;
 let dano_arma_na_rodada = 1;
 let chance_de_jogada_bot = 0;
 
@@ -84,7 +86,7 @@ function atirar() {
                 reverter_efeito_de_itens();
                 aparecer_iten_para_jogador_expecifico();
                 document.getElementById("vez_jogador_js").textContent = "Vez do Jogador: " + vez_jogador;
-                
+
                 if (ordem_das_balas.length <= 0) { aut_inicio_partida(); } //reiniciou as balas
             } else if (vez_jogador === 2 && vida_jogador_1 > 0) {
                 if (ordem_das_balas.length <= 0) {
@@ -100,7 +102,7 @@ function atirar() {
                 reverter_efeito_de_itens();
                 aparecer_iten_para_jogador_expecifico();
                 document.getElementById("vez_jogador_js").textContent = "Vez do Jogador: " + vez_jogador;
-                
+
                 if (ordem_das_balas.length <= 0) { aut_inicio_partida(); } //reiniciou as balas
             }
         }
@@ -126,8 +128,8 @@ function atirar() {
                 }
             }
     }
-    else if (modo_de_jogo === "contra_bot") { 
-       
+    else if (modo_de_jogo === "contra_bot") {
+
         aparecer_iten_para_jogador_expecifico();
         limpar_dialogos_inuteis_ao_atirar();
         console.log(ordem_das_balas);
@@ -154,124 +156,124 @@ function atirar() {
                 jogador_ganhou(vez_jogador);
                 vez_jogador = 2;
                 reverter_efeito_de_itens();
-                aparecer_iten_para_jogador_expecifico(); 
+                aparecer_iten_para_jogador_expecifico();
                 document.getElementById("vez_jogador_js").textContent = "Vez do Jogador: " + vez_jogador;
-                
-                if (ordem_das_balas.length <= 0) { aut_inicio_partida(); } //reiniciou as balas
-                
-            }
-            } else if (ordem_das_balas[0] === 0) {
-                
-                if (vez_jogador === 1 && vida_jogador_2 > 0) {
-                    ordem_das_balas.shift();
-                    document.getElementById("dano_players").innerHTML = "Bala vazia!<br>Vez do jogador 2.";
-                    jogador_ganhou(vez_jogador);
-                    vez_jogador = 2;
-                    reverter_efeito_de_itens();
-                    aparecer_iten_para_jogador_expecifico();
-                    document.getElementById("vez_jogador_js").textContent = "Vez do Jogador: " + vez_jogador;
 
-                    if (ordem_das_balas.length <= 0) { aut_inicio_partida(); } //reiniciou as balas
-                }
+                if (ordem_das_balas.length <= 0) { aut_inicio_partida(); } //reiniciou as balas
+
             }
+        } else if (ordem_das_balas[0] === 0) {
+
+            if (vez_jogador === 1 && vida_jogador_2 > 0) {
+                ordem_das_balas.shift();
+                document.getElementById("dano_players").innerHTML = "Bala vazia!<br>Vez do jogador 2.";
+                jogador_ganhou(vez_jogador);
+                vez_jogador = 2;
+                reverter_efeito_de_itens();
+                aparecer_iten_para_jogador_expecifico();
+                document.getElementById("vez_jogador_js").textContent = "Vez do Jogador: " + vez_jogador;
+
+                if (ordem_das_balas.length <= 0) { aut_inicio_partida(); } //reiniciou as balas
+            }
+        }
         console.log(ordem_das_balas + " antes do bot jogar");
         controle_bot(); //aqui é a função que chama o controle do bot para que ela funcione de maneira correta
         console.log(ordem_das_balas + " depois do bot jogar"); //o controle de bot vai ser sempre chamado porem só vai ser executado se a vez do jogador for 2 (ou seja a do BOT)
     }
 }
-    function atirar_em_si_mesmo() {
-        if (modo_de_jogo === "outro_jogador") { //? esta parte serve funciona somente com o modo de jogo de um jogador, porem o botão sera reutilizado
-            aparecer_iten_para_jogador_expecifico();
-            limpar_dialogos_inuteis_ao_atirar();
+function atirar_em_si_mesmo() {
+    if (modo_de_jogo === "outro_jogador") { //? esta parte serve funciona somente com o modo de jogo de um jogador, porem o botão sera reutilizado
+        aparecer_iten_para_jogador_expecifico();
+        limpar_dialogos_inuteis_ao_atirar();
 
 
-            document.getElementById("informacoes_carregamento").innerHTML = "";
-            if (ordem_das_balas[0] === 1) {
+        document.getElementById("informacoes_carregamento").innerHTML = "";
+        if (ordem_das_balas[0] === 1) {
 
-                if (vez_jogador === 1 && vida_jogador_2 > 0) {
+            if (vez_jogador === 1 && vida_jogador_2 > 0) {
 
-                    vida_jogador_1 -= dano_arma_na_rodada;
-                    ordem_das_balas.shift();
-                    document.getElementById("vida_jogador_1").textContent = "Vida jogador 1: " + vida_jogador_1;
-                    document.getElementById("dano_players").innerHTML = "Jogador 1 deu um tiro em si mesmo!<br>Vez do jogador 2.";
-                    jogador_ganhou(vez_jogador);
-                    vez_jogador = 2;
-                    reverter_efeito_de_itens();
-                    document.getElementById("vez_jogador_js").textContent = "Vez do Jogador: " + vez_jogador;
+                vida_jogador_1 -= dano_arma_na_rodada;
+                ordem_das_balas.shift();
+                document.getElementById("vida_jogador_1").textContent = "Vida jogador 1: " + vida_jogador_1;
+                document.getElementById("dano_players").innerHTML = "Jogador 1 deu um tiro em si mesmo!<br>Vez do jogador 2.";
+                jogador_ganhou(vez_jogador);
+                vez_jogador = 2;
+                reverter_efeito_de_itens();
+                document.getElementById("vez_jogador_js").textContent = "Vez do Jogador: " + vez_jogador;
 
-                    if (ordem_das_balas.length <= 0) { aut_inicio_partida(); } //reiniciou as balas
-                    
-                } else if (vez_jogador === 2 && vida_jogador_1 > 0) {
-                    vida_jogador_2 -= dano_arma_na_rodada;
+                if (ordem_das_balas.length <= 0) { aut_inicio_partida(); } //reiniciou as balas
 
-                    ordem_das_balas.shift();
-                    document.getElementById("vida_jogador_2").textContent = "Vida jogador 2: " + vida_jogador_2;
-                    document.getElementById("dano_players").innerHTML = "Jogador 2 deu um tiro em si mesmo!<br>Vez do jogador 1.";
-                    jogador_ganhou(vez_jogador);
-                    vez_jogador = 1;
-                    reverter_efeito_de_itens();
-                    document.getElementById("vez_jogador_js").textContent = "Vez do Jogador: " + vez_jogador;
-                    
-                    if (ordem_das_balas.length <= 0) { aut_inicio_partida(); } //reiniciou as balas
-                }
-            } else if (ordem_das_balas[0] === 0) {
+            } else if (vez_jogador === 2 && vida_jogador_1 > 0) {
+                vida_jogador_2 -= dano_arma_na_rodada;
 
-                if (vez_jogador === 1 && vida_jogador_2 > 0) {
-                    ordem_das_balas.shift();
-                    document.getElementById("dano_players").innerHTML = "Bala vazia!<br>Jogador 1 continua jogando.";
-                    jogador_ganhou(vez_jogador);
-                    vez_jogador = 1;
-                    reverter_efeito_de_itens();
-                    document.getElementById("vez_jogador_js").textContent = "Vez do Jogador: " + vez_jogador;
-                    if (ordem_das_balas.length <= 0) { aut_inicio_partida(); } //reiniciou as balas
-                } else if (vez_jogador === 2 && vida_jogador_1 > 0) {
-                    ordem_das_balas.shift();
-                    document.getElementById("dano_players").innerHTML = "Bala vazia!<br>Jogador 2 continua jogando.";
-                    jogador_ganhou(vez_jogador);
-                    vez_jogador = 2;
-                    reverter_efeito_de_itens();
-                    document.getElementById("vez_jogador_js").textContent = "Vez do Jogador: " + vez_jogador;
-                    if (ordem_das_balas.length <= 0) { aut_inicio_partida(); } //reiniciou as balas
-                }
+                ordem_das_balas.shift();
+                document.getElementById("vida_jogador_2").textContent = "Vida jogador 2: " + vida_jogador_2;
+                document.getElementById("dano_players").innerHTML = "Jogador 2 deu um tiro em si mesmo!<br>Vez do jogador 1.";
+                jogador_ganhou(vez_jogador);
+                vez_jogador = 1;
+                reverter_efeito_de_itens();
+                document.getElementById("vez_jogador_js").textContent = "Vez do Jogador: " + vez_jogador;
+
+                if (ordem_das_balas.length <= 0) { aut_inicio_partida(); } //reiniciou as balas
+            }
+        } else if (ordem_das_balas[0] === 0) {
+
+            if (vez_jogador === 1 && vida_jogador_2 > 0) {
+                ordem_das_balas.shift();
+                document.getElementById("dano_players").innerHTML = "Bala vazia!<br>Jogador 1 continua jogando.";
+                jogador_ganhou(vez_jogador);
+                vez_jogador = 1;
+                reverter_efeito_de_itens();
+                document.getElementById("vez_jogador_js").textContent = "Vez do Jogador: " + vez_jogador;
+                if (ordem_das_balas.length <= 0) { aut_inicio_partida(); } //reiniciou as balas
+            } else if (vez_jogador === 2 && vida_jogador_1 > 0) {
+                ordem_das_balas.shift();
+                document.getElementById("dano_players").innerHTML = "Bala vazia!<br>Jogador 2 continua jogando.";
+                jogador_ganhou(vez_jogador);
+                vez_jogador = 2;
+                reverter_efeito_de_itens();
+                document.getElementById("vez_jogador_js").textContent = "Vez do Jogador: " + vez_jogador;
+                if (ordem_das_balas.length <= 0) { aut_inicio_partida(); } //reiniciou as balas
             }
         }
-        if (modo_de_jogo === "contra_bot") { //? modo contra bot 
-            
-            aparecer_iten_para_jogador_expecifico();
-            limpar_dialogos_inuteis_ao_atirar();
-
-
-            document.getElementById("informacoes_carregamento").innerHTML = "";
-            if (ordem_das_balas[0] === 1) {
-
-                if (vez_jogador === 1 && vida_jogador_2 > 0) {
-
-                    vida_jogador_1 -= dano_arma_na_rodada;
-                    ordem_das_balas.shift();
-                    document.getElementById("vida_jogador_1").textContent = "Vida jogador 1: " + vida_jogador_1;
-                    document.getElementById("dano_players").innerHTML = "Jogador 1 deu um tiro em si mesmo!<br>Vez do jogador 2.";
-                    jogador_ganhou(vez_jogador);
-                    vez_jogador = 2;
-                    reverter_efeito_de_itens();
-                    document.getElementById("vez_jogador_js").textContent = "Vez do Jogador: " + vez_jogador;
-
-                    if (ordem_das_balas.length <= 0) { aut_inicio_partida(); } //reiniciou as balas
-                    
-                }
-            } else if (ordem_das_balas[0] === 0) {
-
-                if (vez_jogador === 1 && vida_jogador_2 > 0) {
-                    ordem_das_balas.shift();
-                    document.getElementById("dano_players").innerHTML = "Bala vazia!<br>Jogador 1 continua jogando.";
-                    vez_jogador = 1;
-                    reverter_efeito_de_itens();
-                    document.getElementById("vez_jogador_js").textContent = "Vez do Jogador: " + vez_jogador;
-                    if (ordem_das_balas.length <= 0) { aut_inicio_partida(); } //reiniciou as balas
-                }
-            }
-        }
-        controle_bot(); //aqui é a função que chama o controle do bot para que ela funcione de maneira correta
     }
+    if (modo_de_jogo === "contra_bot") { //? modo contra bot 
+
+        aparecer_iten_para_jogador_expecifico();
+        limpar_dialogos_inuteis_ao_atirar();
+
+
+        document.getElementById("informacoes_carregamento").innerHTML = "";
+        if (ordem_das_balas[0] === 1) {
+
+            if (vez_jogador === 1 && vida_jogador_2 > 0) {
+
+                vida_jogador_1 -= dano_arma_na_rodada;
+                ordem_das_balas.shift();
+                document.getElementById("vida_jogador_1").textContent = "Vida jogador 1: " + vida_jogador_1;
+                document.getElementById("dano_players").innerHTML = "Jogador 1 deu um tiro em si mesmo!<br>Vez do jogador 2.";
+                jogador_ganhou(vez_jogador);
+                vez_jogador = 2;
+                reverter_efeito_de_itens();
+                document.getElementById("vez_jogador_js").textContent = "Vez do Jogador: " + vez_jogador;
+
+                if (ordem_das_balas.length <= 0) { aut_inicio_partida(); } //reiniciou as balas
+
+            }
+        } else if (ordem_das_balas[0] === 0) {
+
+            if (vez_jogador === 1 && vida_jogador_2 > 0) {
+                ordem_das_balas.shift();
+                document.getElementById("dano_players").innerHTML = "Bala vazia!<br>Jogador 1 continua jogando.";
+                vez_jogador = 1;
+                reverter_efeito_de_itens();
+                document.getElementById("vez_jogador_js").textContent = "Vez do Jogador: " + vez_jogador;
+                if (ordem_das_balas.length <= 0) { aut_inicio_partida(); } //reiniciou as balas
+            }
+        }
+    }
+    controle_bot(); //aqui é a função que chama o controle do bot para que ela funcione de maneira correta
+}
 
 
 
@@ -372,7 +374,7 @@ function jogador_ganhou(jogador_que_ganhou) {
         itens_limpeza();
         return;
     }
-    function itens_limpeza(){
+    function itens_limpeza() {
         document.getElementById("dano_players").innerHTML = "O jogador " + jogador_que_ganhou + " ganhou a partida!";
         document.getElementById("btn_atirar").style.display = "none";
         document.getElementById("btn_atirarEmSiMesmo").style.display = "none";
@@ -381,6 +383,7 @@ function jogador_ganhou(jogador_que_ganhou) {
         document.getElementById("vida_jogador_2").textContent = "";
         document.getElementById("vez_jogador_js").style.display = "none";
         document.getElementById("id_carga_explosiva").style.display = "none";
+        document.getElementById("id_cura_basica").style.display = "none";
     }
 }
 
@@ -394,44 +397,36 @@ function criar_intens() {
     //isoo daqui ta fazendo dois soteios para decidir se o jogador 1 e 2 vao receber os itens
     //lembrar de editar as chances depois que eu adicionar mais itens ao jogo
     let chance_carga_explosiva = 3;
-    let iten_sorteado = Math.floor(Math.random() * (3 - 1 + 1)) + 1;
-    if (iten_sorteado === 3) {
-        jogador_1_tem_carga_explosiva = true;
-        document.getElementById("ganhar_usar_itens_jogador1").textContent = "Jogador 1 ganhou uma carga explosiva!";
-    }
-    else {
-        jogador_1_tem_carga_explosiva = false;
-    }
-    iten_sorteado = Math.floor(Math.random() * (3 - 1 + 1)) + 1;
-    if (iten_sorteado === 3) {
-        jogador_2_tem_carga_explosiva = true;
-        document.getElementById("ganhar_usar_itens_jogador2").textContent = "Jogador 2 ganhou uma carga explosiva!";
-    } else {
-        jogador_2_tem_carga_explosiva = false;
-    }
+    let chance_cura_basica = 2;
+    let iten_sorteado = Math.floor(Math.random() * (3 - 1 + 1)) + 1; //?aqui daqui ate a proxia marcação se trata da chance dos itens para o jogador 1
+    console.log(iten_sorteado)
+    /* carga explosiva p1 */if (iten_sorteado === 3) { jogador_1_tem_carga_explosiva = true; document.getElementById("ganhar_usar_itens_jogador1").textContent = "Jogador 1 ganhou uma carga explosiva!"; }
+    else { jogador_1_tem_carga_explosiva = false; }
+     /* cura basica p1 */if (iten_sorteado === 2) { jogador_1_tem_cura_basica = true; document.getElementById("ganhar_usar_itens_jogador1").textContent = "Jogador 1 ganhou cura basica!"; }
+    else { jogador_1_tem_cura_basica = false; }
+
+    iten_sorteado = Math.floor(Math.random() * (3 - 1 + 1)) + 1;//? a partir daqui se trata dos itens do jogador 2
+     /* carga explosiva p2 */if (iten_sorteado === 3) { jogador_2_tem_carga_explosiva = true; document.getElementById("ganhar_usar_itens_jogador2").textContent = "Jogador 2 ganhou uma carga explosiva!"; }
+    else { jogador_2_tem_carga_explosiva = false; }
+     /* cura basica p1 */if (iten_sorteado === 2) { jogador_2_tem_cura_basica = true; document.getElementById("ganhar_usar_itens_jogador2").textContent = "Jogador 2 ganhou cura basica!"; }
+    else { jogador_2_tem_cura_basica = false; }
 
 }
 
 function aparecer_iten_para_jogador_expecifico() {
 
     if (vez_jogador === 1) {
-        if (jogador_1_tem_carga_explosiva === true) {
-            document.getElementById("id_carga_explosiva").style.display = "inline-block";
-
-        }
-        else if (jogador_1_tem_carga_explosiva === false) {
-            document.getElementById("id_carga_explosiva").style.display = "none";
-        }
+        /* aparecer carga explosiva p1*/if (jogador_1_tem_carga_explosiva === true) { document.getElementById("id_carga_explosiva").style.display = "inline-block"; }
+        else if (jogador_1_tem_carga_explosiva === false) { document.getElementById("id_carga_explosiva").style.display = "none"; }
+        /* aparecer cura basica p1 */if(jogador_1_tem_cura_basica === true){document.getElementById("id_cura_basica").style.display = "inline-block";}
+        else if(!jogador_1_tem_cura_basica){document.getElementById("id_cura_basica").style.display = "none";}
     }
     if (vez_jogador === 2) {
-        if (jogador_2_tem_carga_explosiva === true) {
-            document.getElementById("id_carga_explosiva").style.display = "inline-block";
-
-        }
-        else if (jogador_2_tem_carga_explosiva === false) {
-            document.getElementById("id_carga_explosiva").style.display = "none";
-        }
-    }
+        /* aparecer carga explosiva p2*/if (jogador_2_tem_carga_explosiva === true) {document.getElementById("id_carga_explosiva").style.display = "inline-block";}
+        else if (jogador_2_tem_carga_explosiva === false) {document.getElementById("id_carga_explosiva").style.display = "none";}
+        /* aparecer cura basica p2 */if(jogador_2_tem_cura_basica === true){document.getElementById("id_cura_basica").style.display = "inline-block";}
+        else if(!jogador_2_tem_cura_basica){document.getElementById("id_cura_basica").style.display = "none";}
+            }
 }
 function limpar_dialogos_inuteis_ao_atirar() {
     document.getElementById("ganhar_usar_itens_jogador1").textContent = "";
@@ -441,96 +436,112 @@ function limpar_dialogos_inuteis_ao_atirar() {
 function carga_explosiva() {
     document.getElementById("id_carga_explosiva").style.display = "none";
     dano_arma_na_rodada = 2;
+    if(vez_jogador === 1){jogador_1_tem_carga_explosiva = false;}
+    else if(vez_jogador === 2){jogador_2_tem_carga_explosiva = false;}
+}
+function cura_basica() {
+    
+    if (vez_jogador === 1) {
+        vida_jogador_1= vida_jogador_1+1;
+        document.getElementById("vida_jogador_1").textContent = "Vida jogador 1: " + vida_jogador_1;
+        jogador_1_tem_cura_basica = false;
+    } else if (vez_jogador === 2) {
+        vida_jogador_2= vida_jogador_2+1;
+        document.getElementById("vida_jogador_2").textContent = "Vida jogador 2: " + vida_jogador_2;
+        jogador_2_tem_cura_basica = false;
+    }
+    document.getElementById("id_cura_basica").style.display = "none"
+
 }
 function reverter_efeito_de_itens() {
     dano_arma_na_rodada = 1;
 }
 
 function controle_bot() {
-    setTimeout(function() {
-    if(modo_de_jogo !="contra_bot"){return;}
-    if (vez_jogador === 2) {
-        chance_de_jogada_bot = Math.floor(Math.random() * (2 - 1 + 1)) + 1;
-        console.log("esta na vez do bot")
-        if (vida_jogador_1 <= 0) {
-            jogador_ganhou(1);
-            return;
-        } else if (vida_jogador_2 <= 0) {
-            jogador_ganhou(2);
-            return;
-        }
-        limpar_dialogos_inuteis_ao_atirar();
-         document.getElementById("informacoes_carregamento").innerHTML = "";
-        if (ordem_das_balas.length <= 0) {
-                    aut_inicio_partida();
-                    document.getElementById("aut_recarga").innerHTML = "As balas foram recarregadas!!!";
-                }
-        
-        if (ordem_das_balas[0] === 1) {
-            if (chance_de_jogada_bot === 1 && vida_jogador_1 != 0) {
-                vida_jogador_1 -= dano_arma_na_rodada;
-                console.log("bot atirou no jogador 1");
-                ordem_das_balas.shift();
-                document.getElementById("vida_jogador_1").textContent = "Vida jogador 1: " + vida_jogador_1;
-              document.getElementById("dano_players").innerHTML = "Jogado 1 Levou um tiro!<br>Vez do jogador 1.";
-              jogador_ganhou(vez_jogador);
-                vez_jogador = 1;
-                reverter_efeito_de_itens();
-                aparecer_iten_para_jogador_expecifico();
-                document.getElementById("vez_jogador_js").textContent = "Vez do Jogador: " + vez_jogador;
-                
-                if (ordem_das_balas.length <= 0) { aut_inicio_partida(); } //reiniciou as balas
+    setTimeout(function () {
+        if (modo_de_jogo != "contra_bot") { return; }
+        if (vez_jogador === 2) {
+            chance_de_jogada_bot = Math.floor(Math.random() * (2 - 1 + 1)) + 1;
+            console.log("esta na vez do bot")
+            if (vida_jogador_1 <= 0) {
+                jogador_ganhou(1);
+                return;
+            } else if (vida_jogador_2 <= 0) {
+                jogador_ganhou(2);
+                return;
             }
-            if (chance_de_jogada_bot === 2 && vida_jogador_2 != 0) {
-                vida_jogador_2 -= dano_arma_na_rodada;
-                ordem_das_balas.shift();
-                document.getElementById("vida_jogador_2").textContent = "Vida jogador 2: " + vida_jogador_2;
-                  document.getElementById("dano_players").innerHTML = "Jogador 2 atirou em si mesmo e levou dano!<br>Vez do jogador 1.";
-                    console.log("bot atirou em si mesmo");
+            limpar_dialogos_inuteis_ao_atirar();
+            document.getElementById("informacoes_carregamento").innerHTML = "";
+            if (ordem_das_balas.length <= 0) {
+                aut_inicio_partida();
+                document.getElementById("aut_recarga").innerHTML = "As balas foram recarregadas!!!";
+            }
+
+            if (ordem_das_balas[0] === 1) {
+                if (chance_de_jogada_bot === 1 && vida_jogador_1 != 0) {
+                    vida_jogador_1 -= dano_arma_na_rodada;
+                    console.log("bot atirou no jogador 1");
+                    ordem_das_balas.shift();
+                    document.getElementById("vida_jogador_1").textContent = "Vida jogador 1: " + vida_jogador_1;
+                    document.getElementById("dano_players").innerHTML = "Jogado 1 Levou um tiro!<br>Vez do jogador 1.";
                     jogador_ganhou(vez_jogador);
                     vez_jogador = 1;
                     reverter_efeito_de_itens();
                     aparecer_iten_para_jogador_expecifico();
                     document.getElementById("vez_jogador_js").textContent = "Vez do Jogador: " + vez_jogador;
-                    if (ordem_das_balas.length <= 0) { aut_inicio_partida(); } //reiniciou as balas
-                    
-            }
 
-        }//
-        else if (ordem_das_balas[0] === 0) {
-            if (chance_de_jogada_bot === 1 && vida_jogador_1 != 0) {
-                
-                console.log("bot deu bala vazia");
-                ordem_das_balas.shift();
-                document.getElementById("vida_jogador_1").textContent = "Vida jogador 1: " + vida_jogador_1;
-                document.getElementById("dano_players").innerHTML = "jogador 2 atirou em jogador 1 mas era Bala vazia!<br>Vez do jogador 1.";
-                jogador_ganhou(vez_jogador);
-                vez_jogador = 1;
-                reverter_efeito_de_itens();
-                aparecer_iten_para_jogador_expecifico();
-                document.getElementById("vez_jogador_js").textContent = "Vez do Jogador: " + vez_jogador;
-                
-                if (ordem_das_balas.length <= 0) { aut_inicio_partida(); } //reiniciou as balas
-            }
-            if (chance_de_jogada_bot === 2 && vida_jogador_2 != 0) {
-                
-                ordem_das_balas.shift();
-                   document.getElementById("dano_players").innerHTML = "Jogador 2 atirou em si mesmo mas era Bala vazia!<br>Vez do jogador 2.";
+                    if (ordem_das_balas.length <= 0) { aut_inicio_partida(); } //reiniciou as balas
+                }
+                if (chance_de_jogada_bot === 2 && vida_jogador_2 != 0) {
+                    vida_jogador_2 -= dano_arma_na_rodada;
+                    ordem_das_balas.shift();
+                    document.getElementById("vida_jogador_2").textContent = "Vida jogador 2: " + vida_jogador_2;
+                    document.getElementById("dano_players").innerHTML = "Jogador 2 atirou em si mesmo e levou dano!<br>Vez do jogador 1.";
+                    console.log("bot atirou em si mesmo");
+                    jogador_ganhou(1);
+                    vez_jogador = 1;
+                    reverter_efeito_de_itens();
+                    aparecer_iten_para_jogador_expecifico();
+                    document.getElementById("vez_jogador_js").textContent = "Vez do Jogador: " + vez_jogador;
+                    if (ordem_das_balas.length <= 0) { aut_inicio_partida(); } //reiniciou as balas
+
+                }
+
+            }//
+            else if (ordem_das_balas[0] === 0) {
+                if (chance_de_jogada_bot === 1 && vida_jogador_1 != 0) {
+
+                    console.log("bot deu bala vazia");
+                    ordem_das_balas.shift();
+                    document.getElementById("vida_jogador_1").textContent = "Vida jogador 1: " + vida_jogador_1;
+                    document.getElementById("dano_players").innerHTML = "jogador 2 atirou em jogador 1 mas era Bala vazia!<br>Vez do jogador 1.";
+                    jogador_ganhou(vez_jogador);
+                    vez_jogador = 1;
+                    reverter_efeito_de_itens();
+                    aparecer_iten_para_jogador_expecifico();
+                    document.getElementById("vez_jogador_js").textContent = "Vez do Jogador: " + vez_jogador;
+
+                    if (ordem_das_balas.length <= 0) { aut_inicio_partida(); } //reiniciou as balas
+                }
+                if (chance_de_jogada_bot === 2 && vida_jogador_2 != 0) {
+
+                    ordem_das_balas.shift();
+                    document.getElementById("dano_players").innerHTML = "Jogador 2 atirou em si mesmo mas era Bala vazia!<br>Vez do jogador 2.";
                     console.log("bot atirou em si mesmo e vazia");
-                    
+
                     repetir_controle_bot();
                     reverter_efeito_de_itens();
                     aparecer_iten_para_jogador_expecifico();
                     document.getElementById("vez_jogador_js").textContent = "Vez do Jogador: " + vez_jogador;
                     if (ordem_das_balas.length <= 0) { aut_inicio_partida(); } //reiniciou as balas
                     jogador_ganhou(vez_jogador);
-            }
+                }
 
+            }
         }
-    }
     }, 7000);
 }
-function repetir_controle_bot(){
-    
+function repetir_controle_bot() {
+
     controle_bot();
 }
