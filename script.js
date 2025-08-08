@@ -14,6 +14,8 @@ let jogador_1_tem_carga_explosiva = false;
 let jogador_2_tem_carga_explosiva = false;
 let jogador_1_tem_cura_basica = false;
 let jogador_2_tem_cura_basica = false;
+let jogador_1_tem_revelar_bala = false;
+let jogador_2_tem_revelar_bala = false;
 let dano_arma_na_rodada = 1;
 let chance_de_jogada_bot = 0;
 
@@ -398,18 +400,23 @@ function criar_intens() {
     //lembrar de editar as chances depois que eu adicionar mais itens ao jogo
     let chance_carga_explosiva = 3;
     let chance_cura_basica = 2;
+    let chance_revelar_bala_atual = 1;
     let iten_sorteado = Math.floor(Math.random() * (3 - 1 + 1)) + 1; //?aqui daqui ate a proxia marcação se trata da chance dos itens para o jogador 1
     console.log(iten_sorteado)
     /* carga explosiva p1 */if (iten_sorteado === 3) { jogador_1_tem_carga_explosiva = true; document.getElementById("ganhar_usar_itens_jogador1").textContent = "Jogador 1 ganhou uma carga explosiva!"; }
     else { jogador_1_tem_carga_explosiva = false; }
      /* cura basica p1 */if (iten_sorteado === 2) { jogador_1_tem_cura_basica = true; document.getElementById("ganhar_usar_itens_jogador1").textContent = "Jogador 1 ganhou cura basica!"; }
     else { jogador_1_tem_cura_basica = false; }
+     /* revelar bala p1 */if (iten_sorteado === 1) { jogador_1_tem_revelar_bala = true; document.getElementById("ganhar_usar_itens_jogador1").textContent = "Jogador 1 ganhou revelar bala atual!"; }
+    else { jogador_1_tem_revelar_bala = false; }
 
     iten_sorteado = Math.floor(Math.random() * (3 - 1 + 1)) + 1;//? a partir daqui se trata dos itens do jogador 2
      /* carga explosiva p2 */if (iten_sorteado === 3) { jogador_2_tem_carga_explosiva = true; document.getElementById("ganhar_usar_itens_jogador2").textContent = "Jogador 2 ganhou uma carga explosiva!"; }
     else { jogador_2_tem_carga_explosiva = false; }
-     /* cura basica p1 */if (iten_sorteado === 2) { jogador_2_tem_cura_basica = true; document.getElementById("ganhar_usar_itens_jogador2").textContent = "Jogador 2 ganhou cura basica!"; }
+     /* cura basica p2 */if (iten_sorteado === 2) { jogador_2_tem_cura_basica = true; document.getElementById("ganhar_usar_itens_jogador2").textContent = "Jogador 2 ganhou cura basica!"; }
     else { jogador_2_tem_cura_basica = false; }
+    /* revelar bala p2 */if (iten_sorteado === 1) { jogador_2_tem_revelar_bala = true; document.getElementById("ganhar_usar_itens_jogador2").textContent = "Jogador 2 ganhou revelar bala atual!"; }
+    else { jogador_2_tem_revelar_bala = false; }
 
 }
 
@@ -420,13 +427,18 @@ function aparecer_iten_para_jogador_expecifico() {
         else if (jogador_1_tem_carga_explosiva === false) { document.getElementById("id_carga_explosiva").style.display = "none"; }
         /* aparecer cura basica p1 */if(jogador_1_tem_cura_basica === true){document.getElementById("id_cura_basica").style.display = "inline-block";}
         else if(!jogador_1_tem_cura_basica){document.getElementById("id_cura_basica").style.display = "none";}
+        /* aparecer revelar bala p1 */if(jogador_1_tem_revelar_bala === true){document.getElementById("id_revelar_bala_atual").style.display = "inline-block";}
+        else if(!jogador_1_tem_revelar_bala){document.getElementById("id_revelar_bala_atual").style.display = "none";}
     }
     if (vez_jogador === 2) {
         /* aparecer carga explosiva p2*/if (jogador_2_tem_carga_explosiva === true) {document.getElementById("id_carga_explosiva").style.display = "inline-block";}
         else if (jogador_2_tem_carga_explosiva === false) {document.getElementById("id_carga_explosiva").style.display = "none";}
         /* aparecer cura basica p2 */if(jogador_2_tem_cura_basica === true){document.getElementById("id_cura_basica").style.display = "inline-block";}
-        else if(!jogador_2_tem_cura_basica){document.getElementById("id_cura_basica").style.display = "none";}
+        else if(jogador_2_tem_cura_basica === false){document.getElementById("id_cura_basica").style.display = "none";}
+        /* aparecer revelar bala p2 */if(jogador_2_tem_revelar_bala === true){document.getElementById("id_revelar_bala_atual").style.display = "inline-block";}
+        else if(jogador_2_tem_revelar_bala === false){document.getElementById("id_revelar_bala_atual").style.display = "none";}
             }
+        
 }
 function limpar_dialogos_inuteis_ao_atirar() {
     document.getElementById("ganhar_usar_itens_jogador1").textContent = "";
@@ -450,17 +462,32 @@ function cura_basica() {
         document.getElementById("vida_jogador_2").textContent = "Vida jogador 2: " + vida_jogador_2;
         jogador_2_tem_cura_basica = false;
     }
-    document.getElementById("id_cura_basica").style.display = "none"
+    document.getElementById("id_cura_basica").style.display = "none";
 
+}
+function revelar_bala_atual(){
+    console.log(ordem_das_balas);
+    document.getElementById("atividade_de_iten").textContent = "A bala dese rodade é: "+ordem_das_balas[0];
+    if(vez_jogador === 1){
+        jogador_1_tem_revelar_bala = false;
+    }
+    else if(vez_jogador === 2){
+        jogador_2_tem_revelar_bala = false;
+    }
+
+    document.getElementById("id_revelar_bala_atual").style.display = "none";
 }
 function reverter_efeito_de_itens() {
     dano_arma_na_rodada = 1;
+    document.getElementById("atividade_de_iten").textContent = "";
 }
 
 function controle_bot() {
     setTimeout(function () {
+        
         if (modo_de_jogo != "contra_bot") { return; }
         if (vez_jogador === 2) {
+            uso_itens_bot();
             chance_de_jogada_bot = Math.floor(Math.random() * (2 - 1 + 1)) + 1;
             console.log("esta na vez do bot")
             if (vida_jogador_1 <= 0) {
@@ -540,6 +567,52 @@ function controle_bot() {
             }
         }
     }, 7000);
+}
+function uso_itens_bot(){
+    
+    if (vez_jogador === 2){
+        if(jogador_2_tem_carga_explosiva){
+            carga_explosiva();
+            document.getElementById("ganhar_usar_itens_jogador2").textContent = "jogador 2 usou carga explosiva";
+        }
+        else if(jogador_2_tem_cura_basica){
+            cura_basica();
+            document.getElementById("ganhar_usar_itens_jogador2").textContent = "jogador 2 usou cura basica";
+        }
+        else if(jogador_2_tem_revelar_bala){
+            revelar_bala_atual();
+            console.log("usou revelar bala atual e o dano da bala é: " + dano_arma_na_rodada)
+            document.getElementById("ganhar_usar_itens_jogador2").textContent = "jogador 2 usou revelar bala atual";
+            if(ordem_das_balas[0] === 1){
+                vida_jogador_1 -= dano_arma_na_rodada;
+              console.log("bot atirou no jogador 1");
+                ordem_das_balas.shift();
+                document.getElementById("vida_jogador_1").textContent = "Vida jogador 1: " + vida_jogador_1;
+                document.getElementById("dano_players").innerHTML = "Jogador 2 usou revelar bala atual! <br>Jogado 1 Levou um tiro!<br>Vez do jogador 1.";
+                jogador_ganhou(vez_jogador);
+                vez_jogador = 1;
+                reverter_efeito_de_itens();
+                aparecer_iten_para_jogador_expecifico();
+                document.getElementById("vez_jogador_js").textContent = "Vez do Jogador: " + vez_jogador;
+
+                if (ordem_das_balas.length <= 0) { aut_inicio_partida(); } //reiniciou as balas
+                repetir_controle_bot();
+            }else if(ordem_das_balas[0] === 0){
+                 ordem_das_balas.shift();
+                    document.getElementById("dano_players").innerHTML = "Jogador 2 usou revelar bala atual! <br>Jogador 2 atirou em si mesmo mas era Bala vazia!<br>Vez do jogador 2.";
+                    console.log("bot atirou em si mesmo e vazia");
+
+                   
+                    reverter_efeito_de_itens();
+                    aparecer_iten_para_jogador_expecifico();
+                    document.getElementById("vez_jogador_js").textContent = "Vez do Jogador: " + vez_jogador;
+                    if (ordem_das_balas.length <= 0) { aut_inicio_partida(); } //reiniciou as balas
+                    jogador_ganhou(vez_jogador);
+                    vez_jogador =2;
+                    repetir_controle_bot();
+            }
+        }
+    }
 }
 function repetir_controle_bot() {
 
