@@ -1,0 +1,7 @@
+#btn_atirar,
+#btn_atirarEmSiMesmo,
+#vez_jogador_js,
+#quantidade_vida,
+#iniciar_partida_contra_outro_jogador, #id_carga_explosiva, #iniciar_partida_contra_bot, #id_cura_basica, #id_revelar_bala_atual{
+    display: none;
+}
