@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BadRoulet
+    </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="script.js" defer></script>
+</head>
+<link rel="stylesheet" href="./style.css">
+
+
+<body>
+
+    <div id="modo_de_jogo">
+        <button id="id_jogar_contra_bot" onclick=" jogar_contra_bot()">Jogar contra um BOT</button>
+        <button id="id_jogar_contra_outra_pessoa" onclick="jogar_com_outra_pessoa()">Jogar com outra pessoa</button>
+    </div>
+    <div id="vez_jogadores">
+        <p id="vez_jogador_js">Vez do jogador: 1</p>    
+    </div>
+    <div id="life">
+        <p id="quantidade_vida">Comece a partida</p>
+        <p id="vida_jogador_1"></p>
+        <p id="vida_jogador_2"></p>
+
+    </div>
+    <div id="att_carregamento">
+        <p id="informacoes_carregamento"></p>
+        <p id="aut_recarga"></p>
+    </div>
+    <div id="botoes ">
+        <button id="iniciar_partida_contra_outro_jogador" onclick="inicio_partida_jogador()">Iniciar partida</button>
+        <button id="iniciar_partida_contra_bot" onclick="inicio_partida_bot()">Iniciar partida</button>
+        <button id="btn_atirar" onclick="atirar()">Atirar</button>
+        <button id="btn_atirarEmSiMesmo" onclick="atirar_em_si_mesmo()">Atirar em si mesmo</button>
+    </div>
+    <div id="ultilizaveis">
+        <button id="id_carga_explosiva" onclick="carga_explosiva()">Carga Explosiva</button>
+        <button id="id_cura_basica" onclick="cura_basica()">Cura basica</button>
+        <button id="id_revelar_bala_atual" onclick="revelar_bala_atual()">Revelar Bala atual</button>
+    </div>
+    
+    <div id="acontecimentos">
+        
+        <p id="dano_players"></p>
+        <p id="ganhar_usar_itens_jogador1"></p>
+        <p id="ganhar_usar_itens_jogador2"></p>
+        <p id="atividade_de_iten"></p>
+    </div>
+</body>
+
+
+</html>
