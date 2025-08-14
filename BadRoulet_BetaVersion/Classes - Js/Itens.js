@@ -1,0 +1,4 @@
+class Itens{
+    //?Atibutos / variaveis
+    
+}
