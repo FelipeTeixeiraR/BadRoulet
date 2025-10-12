@@ -1,0 +1,83 @@
+.body {
+    background-color: rgb(10, 10, 10);
+}
+body{
+    background-color: rgb(14, 14, 14);
+    color: aliceblue;
+}
+.container{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            
+        }
+.bloco{
+        
+    padding: 2% 20% 10% 20%;
+    border-radius: 10px;
+    border: 1px solid rgb(27, 27, 27);
+    border-radius: 8px;
+}
+#vez_jogadores{
+    margin-left: 22%;
+  
+    font-size: 22px;
+}
+#vida_jogador_1{
+    font-size: 21px;
+    position: absolute;
+    margin-left: -15%;
+    margin-top: -36px;
+    color: rgb(12, 242, 250);
+    
+}
+#vida_jogador_2{
+    margin-top: -36px;
+    position: absolute;
+    font-size: 21px;
+    color: rgb(255, 60, 60);
+    margin-left: 25%;
+}
+#MinecraftHeartLife1{
+    position: absolute;
+    margin-left: -238px;
+    margin-top: -70px;
+
+    
+}
+#MinecraftHeartLife2{
+    position: absolute;
+    margin-left: 365px;
+    margin-top: -70px;
+}
+#vida_jogador_1, #vida_jogador_2, #MinecraftHeartLife1, #MinecraftHeartLife2 {
+    display: inline-block;
+    
+}
+#imgPenteArma{
+    position: absolute;
+    margin-left: -250px;
+    
+}
+#imgBalaCheia{
+    position: absolute;
+    
+    margin-left: -132px;
+    margin-top: 60px;
+}
+#imgBalaVazia{
+    position: absolute;
+    margin-left: -146px;
+    margin-top: 160px;
+}
+
+
+
+
+#btn_atirar,
+#btn_atirarEmSiMesmo,
+#vez_jogador_js,
+#quantidade_vida,
+#iniciar_partida_contra_outro_jogador, #id_carga_explosiva, #iniciar_partida_contra_bot, #id_cura_basica, #id_revelar_bala_atual, #imgPenteArma, #imgBalaCheia, #imgBalaVazia{
+    display: none;
+}
